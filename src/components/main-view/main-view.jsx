@@ -43,6 +43,23 @@ export const MainView = () => {
 
       const [selectedMovie, setSelectedMovie] = useState(null);
 
+      useEffect(() => {
+        fetch("https://myflix-api-3dxz.onrender.com/movies")
+          .then((response) => response.json())
+          .then((data) => {
+            const moviesFromApi = data.docs.map((doc) => {
+              return {
+                id: doc.key,
+                title: doc.title,
+                author: doc.director_name?.[0]
+              };
+            });
+    
+            setMovies(moviesFromApi);
+          });
+      }, []);
+
+
       if (selectedMovie) {
         return (
           <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
@@ -58,7 +75,7 @@ export const MainView = () => {
       {movies.map((movie) => {
        <MovieCard 
          key={movie.id}
-         movie={movie} 
+         movieTitle={movie} 
          onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)}
          />
       })}
