@@ -27132,7 +27132,7 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movie, setMovie] = (0, _react.useState)([
+    const [movies, setMovies] = (0, _react.useState)([
         {
             id: 1,
             title: "Big Fish",
@@ -27183,7 +27183,7 @@ const MainView = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: movies.map((movie)=>{
             return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                movieTitle: movie,
+                movie: movie,
                 onMovieClick: (newSelectedMovie)=>setSelectedMovie(newSelectedMovie)
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
@@ -27197,7 +27197,7 @@ const MainView = ()=>{
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "onRuyZ6S7MXZVaG1o71Csj1KXK4=");
+_s(MainView, "37LNgCp+G6WGe5Ndch7FYoLhcOc=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
