@@ -6,6 +6,7 @@ export const MainView = () => {
     const [movies, setMovies] = useState([]);
 
       const [selectedMovie, setSelectedMovie] = useState(null);
+      
 
       useEffect(() => {
         fetch("https://myflix-api-3dxz.onrender.com/movies")
