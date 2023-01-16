@@ -1,48 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-    const [movies, setMovies] = useState([
-        {
-          id: 1,
-          title: "Big Fish",
-          image:
-            "https://images-na.ssl-images-amazon.com/images/I/51InjRPaF7L._SX377_BO1,204,203,200_.jpg",
-          director: "Tim Burton"
-        },
-        {
-          id: 2,
-          title: "Harry Potter and the Chamber of Secrets",
-          image:
-            "https://images-na.ssl-images-amazon.com/images/I/51WAikRq37L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-          director: "Chris Columbus"
-        },
-        {
-          id: 3,
-          title: "Lord of the Rings",
-          image:
-            "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SX381_BO1,204,203,200_.jpg",
-          director: "Peter Jackson"
-        },
-        {
-          id: 4,
-          title: "Modigliani",
-          image:
-            "https://images-na.ssl-images-amazon.com/images/I/51HbNW6RzhL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-          director: "Mick Davis"
-        },
-        {
-          id: 5,
-          title: "The Ring",
-          image:
-            "https://images-na.ssl-images-amazon.com/images/I/41MBLi5a4jL._SX384_BO1,204,203,200_.jpg",
-          director: "Gore Verbinski"
-        }
-      ]);
+    const [movies, setMovies] = useState([]);
 
       const [selectedMovie, setSelectedMovie] = useState(null);
 
+      useEffect(() => {
+        fetch("https://myflix-api-3dxz.onrender.com/movies")
+          .then((response) => response.json())
+          .then((data) => {
+            const moviesFromApi = data.docs.map((doc) => {
+              return {
+                id: doc.key,
+                title: doc.title,
+                author: doc.director_name?.[0]
+              };
+            });
+    
+            setMovies(moviesFromApi);
+          });
+      }, []);
+    
+      if (selectedMovie) {
+        return (
+          <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+        );
+     }
 
       if (selectedMovie) {
         return (
